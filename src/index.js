@@ -1,12 +1,24 @@
-import { StrictMode } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { combineReducers, createStore } from "redux";
+import { BrowserRouter } from "react-router-dom";
 
+import "./styles.css";
 import App from "./App";
+import productReducer from "./store/reducers/products";
 
-const rootElement = document.getElementById("root");
+const rootReducer = combineReducers({
+  shop: productReducer
+});
+
+const store = createStore(rootReducer);
+
 ReactDOM.render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-  rootElement
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root")
 );
